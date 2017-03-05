@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Week 6 Homework</title>
+  <style type="text/css">
+    button,
+    div,
+    form,
+    input {
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Soccer Players Search</h1>
+    <!-- Rendered buttons will get dumped Here  -->
+    <div id="buttons-view"></div>
+    <form id="player-form">
+      <label for="player-input">Search for a Player</label>
+      <input type="text" id="player-input"><br>
+      <!-- Button triggers new player to be added -->
+      <input id="add-player" type="button" value="Add a Player">
+    </form>
+    <!-- Players will get dumped dere -->
+    <div id="player-view"></div>
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+      // Initial array of movies
+      var players = ["Thomas Muller", "Wayne Rooney", "Christian Ronoldo", "Neymar"];
+      // displayPlayerInfo function re-renders the HTML to display the appropriate content
+      function displayPlayerInfo() {
+        var player = $(this).attr("data-name");
+        var queryURL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&r=json";
+        // Creating an AJAX call for the specific player button being clicked
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).done(function(response) {
+          // Creating a div to hold the player images
+          var playerDiv = $("<div class='player'>");
+          // Storing the rating data
+          var rating = response.Rated;
+          // Creating an element to have the rating displayed
+          var pOne = $("<p>").text("Rating: " + rating);
+          // Displaying the rating
+          playerDiv.append(pOne);
+          // Retrieving the URL for the image
+          var imgURL = response.Poster;
+          // Creating an element to hold the image
+          var image = $("<img>").attr("src", imgURL);
+          // Appending the image
+          playerDiv.append(image);
+          // Putting the entire player above the previous movies
+          $("#player-view").prepend(playerDiv);
+        });
+      }
+      // Function for displaying player data
+      function renderButtons() {
+        // Deleting the players prior to adding new players
+        // (this is necessary otherwise you will have repeat buttons)
+        $("#buttons-view").empty();
+        // Looping through the array of movies
+        for (var i = 0; i < players.length; i++) {
+          // Then dynamicaly generating buttons for each player in the array
+          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+          var a = $("<button>");
+          // Adding a class of player to our button
+          a.addClass("player");
+          // Adding a data-attribute
+          a.attr("data-name", players[i]);
+          // Providing the initial button text
+          a.text(players[i]);
+          // Adding the button to the buttons-view div
+          $("#buttons-view").append(a);
+        }
+      }
+      // This function handles events where a movie button is clicked
+      $("#add-player").on("click", function(event) {
+        event.preventDefault();
+        // This line grabs the input from the textbox
+        var movie = $("#player-input").val().trim();
+        // Adding movie from the textbox to our array
+        players.push(player);
+        // Calling renderButtons which handles the processing of our movie array
+        renderButtons();
+      });
+      // Adding a click event listener to all elements with a class of "player"
+      $(document).on("click", ".player", displayPlayerInfo);
+      // Calling the renderButtons function to display the intial buttons
+      renderButtons();
+
+      $(".gif").on("click", function() {
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+    });
+    </script>
+  </div>
+</body>
+</html>
