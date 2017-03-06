@@ -43,7 +43,7 @@ function renderButtons(){
     	
     	$("#heros").empty();
     	var newHeroSearch = $(this).val().trim(); 
-    	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + newHeroSearch + "&api_key=dc6zaTOxFJmzC&limit=10";
+    	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + newHeroSearch + "&api_key=dc6zaTOxFJmzC&limit=10";
     	//make the call and get the object response for the i images
     	$.ajax({
     	url: queryURL, 
