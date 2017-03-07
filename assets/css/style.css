@@ -27,6 +27,7 @@ body{
   border-radius: 4px;
   margin-top: 50px;
 }
+
 img {
   width: 66%;   
   height: 66%;
@@ -43,6 +44,7 @@ img {
 }
 .well{
   background-color: rgba(245, 245, 245, 0.4);
+  height: auto;
 }
 button{
   margin:5px;
@@ -50,6 +52,11 @@ button{
 .navbar-header h2 {
 color:white;
 }
+
+#imageRatingContainer{
+  float:left;
+}
+
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
   .sidenav {
