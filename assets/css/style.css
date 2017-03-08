@@ -45,6 +45,7 @@ img {
 .well{
   background-color: rgba(245, 245, 245, 0.4);
   height: auto;
+  overflow:auto;
 }
 button{
   margin:5px;
